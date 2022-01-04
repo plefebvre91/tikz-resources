@@ -1,0 +1,71 @@
+\begin{tikzpicture}[]
+
+  % Grosses zones
+  \foreach \y\c in {0/redfill,2/bluefill,4/bluefill,6/greenfill,8/greenfill} {
+    \fill[color=\c,line width=0.5pt] (-3,\y) rectangle (21, \y+2);
+  }
+  
+  \foreach \x in {0,...,15} {
+    % 16 octets ligne du haut
+    \filldraw[fill=black!4,draw=black,line width=0.5pt] (\x*0.5, 8.25) rectangle (0.5+\x*0.5,8.75);
+    \draw[line width=0.5pt, ->] (0.25+\x*0.5,8.75) -- (0.25+\x*0.5,9);
+    \draw[line width=0.5pt]  (0.25+\x*0.5,8.5) node{\small{$\x$}};
+    
+    % 16 octets à droite
+    \filldraw[fill=black!4,draw=black,line width=0.5pt] (8+\x*0.5, 6.25) rectangle (8.5+\x*0.5,6.75);
+    \draw[line width=0.5pt, ->] (8.25+\x*0.5,6.75) -- (8.25+\x*0.5,7);
+    \draw[line width=0.5pt]  (8.25+\x*0.5,6.5) node{\small{$\x$}};
+
+    % 16 octets (shift 1)
+    \filldraw[fill=black!4,draw=black,line width=0.5pt] (0.5+\x*0.5, 4.25) rectangle (1+\x*0.5,4.75);
+    \draw[line width=0.5pt, ->] (0.75+\x*0.5,4.75) -- (0.75+\x*0.5,5);
+    \draw[line width=0.5pt]  (0.75+\x*0.5,4.5) node{\small{$\x$}};
+    
+    % 16 octets (1 sur 2)
+    \filldraw[fill=black!4,draw=black,line width=0.5pt] (\x, 2.25) rectangle (\x+0.5,2.75);
+    \draw[line width=0.5pt, ->] (0.25+\x,2.75) -- (0.25+\x,3);
+    \draw[line width=0.5pt]  (0.25+\x,2.5) node{\small{$\x$}};
+
+  }
+
+  % Lignes de code
+  \draw[text=black] (0,9.75) node[right]{\small{\texttt{int p = data[global\_id + 1]}}};
+  \draw[text=black] (0,7.75) node[right]{\small{\texttt{int p = data[n-global\_id]}}};
+  \draw[text=black] (0,5.75) node[right]{\small{\texttt{int p = data[global\_id + 1]}}};
+  \draw[text=black] (0,3.75) node[right]{\small{\texttt{int p = data[global\_id * 2]}}};
+  \draw[text=black] (0,1.75) node[right]{\small{\texttt{int p = data[global\_id * 16]}}};
+
+
+  %% Texte 'global_id'
+  \foreach \y in {0.5, 2.5,...,8.5} {
+    \draw[line width=0.5pt]  (-1,\y) node{\small{\texttt{global\_id}:}};
+  }
+    
+  % Lignes de caches (2 parties) dans les zones 
+  \foreach \y in {3,5,...,9} {
+    \filldraw[fill=black!4,draw=black,line width=1pt] (0,\y) rectangle (8, \y+0.5);
+    \draw[text=black] (4,\y+0.25) node{\small{Cache Line $n$}};
+    
+    \filldraw[fill=black!4,draw=black,line width=1pt] (8,\y) rectangle (16, \y+0.5);
+    \draw[text=black] (12,\y+0.25) node{\small{Cache Line $n+1$}};
+  }
+
+  % Ligne de cache coupee en 4
+  \foreach \i\x\label in {0/0/n,1/4/n+1,2/8/n+2,$\dots$/12/$\dots$} {
+    \filldraw[fill=black!4,draw=black,line width=1pt] (\x,1) rectangle (\x+4,1.5);
+    \draw[text=black] (\x+2,1.25) node{\small{Cache Line $\label$}};
+    
+    \filldraw[fill=black!4,draw=black,line width=0.5pt] (0+\x, 0.25) rectangle (0.5+\x,0.75);
+    \draw[line width=0.5pt, ->] (0.25+\x,0.75) -- (0.25+\x,1);
+    \draw[line width=0.5pt]  (0.25+\x,0.5) node{\small{$\i$}}; 
+  }
+
+
+  % Lignes de code
+  \draw[text=greentext] (17,9) node[right]{\large{\textbf{Full bandwith}}};
+  \draw[text=greentext] (17,7) node[right]{\large{\textbf{Full bandwith}}};
+  \draw[text=bluetext] (17,5) node[right]{\large{\textbf{Half bandwith}}};
+  \draw[text=bluetext] (17,3) node[right]{\large{\textbf{Half bandwith}}};
+  \draw[text=redtext] (17,1) node[right]{\large{\textbf{Worst case}}};
+  
+\end{tikzpicture}
