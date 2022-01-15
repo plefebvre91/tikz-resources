@@ -1,0 +1,60 @@
+\begin{tikzpicture}[]
+
+  % Grosse zone
+  \filldraw[fill=black!5,draw=black,line width=0.5pt] (-0.1,-8.1) rectangle (9, 4.0);
+
+  % Clock cycle
+  \draw[text=black] (5, 4.9) node{\textbf{Clock cycles}};
+
+  % Zone surbrillance
+  \filldraw[fill=black!4,draw=black,line width=0.5pt] (-0.1,-4.05) rectangle (9, -0.05);
+  
+  % 4 carres de couleur
+  \foreach \x in {0,...,8} {
+    \draw[text=black] (\x+0.5, 4.4) node{\small{$C_\x$}};
+    % \draw[color=black!50,line width=0.5pt,dashed] (\x+0.95, 4) rectangle (\x+0.95, -8.1);
+    
+    \foreach \y\color in {3/redoutline,2/blueoutline,1/greenoutline,0/yellowfill} {
+      \filldraw[fill=\color,draw=black,line width=0.8pt] (\x, \y-\x) rectangle (\x+0.90, \y-\x+0.90);
+    }
+  }
+  
+  % 4 carres gris droite
+  \foreach \x in {0,...,3} {
+    \foreach \y in {\x,...,0} {
+      \filldraw[fill=black!15,draw=black,line width=0.5pt] (\x+5, \y-\x-1) rectangle (\x+5+0.90, \y-\x+0.90-1);
+    }
+  }
+  
+  % Accolade rouge
+  \filldraw[fill=redoutline,draw=black,decorate,decoration={brace,amplitude=15pt},xshift=-4pt] (0,0) -- (0,3.9) node [rotate=90,black,midway,yshift=20pt] {\textbf{Waiting instructions}};
+
+  % Accolade milieu
+  \filldraw[fill=black!10,draw=black,decorate,decoration={brace,amplitude=15pt},xshift=-4pt] (-3,-4) -- (-3,-0.1) node [rotate=90,black,midway,yshift=25pt] {\textbf{Pipeline}};
+  \fill[color=black!10,line width=0.5pt] (-3.15,-4) rectangle (-0.1, -0.1);
+
+  % Legende
+  \foreach \y \color in {3/yellowfill,2/greenoutline,1/blueoutline,0/redoutline} {
+    \filldraw[fill=\color,draw=black,line width=0.8pt] (-3, \y-3.9) rectangle (-2.3, \y-3.9+0.7);
+  }
+
+  % Label dans la legende
+  \foreach \y in {4,...,1} {
+    \draw[text=black] (-2.65 , -\y+1-0.55) node{ \textbf{\y}};
+  }
+
+  % Operation dans la legende
+  \foreach \op \y in {Fetch/4,Decode/3,Execute/2,Write-back/1} {
+    \draw[text=black] (-2.2, \y+1-5.55) node[right]{ \textbf{\op}};
+  }
+  
+  % Accolade verte
+  \filldraw[fill=greenoutline,draw=black,decorate,decoration={brace,amplitude=15pt},xshift=-4pt] (0,-8) -- (0,-4.1) node [rotate=90,black,midway,yshift=20pt] {\textbf{Completed instructions}};
+  
+  % 4 carres gris gauche
+  \foreach \x in {0,...,3} {
+    \foreach \y in {\x,...,0} {
+      \filldraw[fill=black!10,draw=black,line width=0.5pt] (-\x+3, -\y+\x-4) rectangle (-\x+3.90, -\y+\x-3.10);
+    }
+  }  
+\end{tikzpicture}
