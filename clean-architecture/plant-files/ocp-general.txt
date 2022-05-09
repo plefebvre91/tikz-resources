@@ -1,0 +1,9 @@
+@startuml                                                                       
+!theme plain                                                                    
+left to right direction                                                         
+skinparam componentStyle uml1                                                   
+                                                                                
+[Protected (HL)] <-- [Variant (LL)] : depends on       
+[Protected (HL)] ..> [Variant (LL)] : knows nothing about
+@enduml
+

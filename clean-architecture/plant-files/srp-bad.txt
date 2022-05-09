@@ -1,0 +1,14 @@
+@startuml
+!theme plain
+left to right direction
+hide empty members
+class Employee {
++calulatePay
++reportHours
++save
+}
+
+CFO --> Employee
+COO --> Employee
+CTO --> Employee
+@enduml

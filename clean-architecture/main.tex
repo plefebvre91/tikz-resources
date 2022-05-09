@@ -1,0 +1,198 @@
+%% beamerthemeImperialPoster v1.0 2016/10/01
+%% Beamer poster theme created for Imperial College by LianTze Lim (Overleaf)
+%% LICENSE: LPPL 1.3
+\documentclass[xcolor={table}]{beamer}
+
+\usepackage[size=a3,orientation=portrait,scale=1.55]{beamerposter}
+\usetheme{ImperialPoster}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{tikz}
+\usetikzlibrary{decorations.text,calc,arrows.meta}
+
+\usecolortheme{ImperialWhite} 
+
+% Redefines the caption setup of the figures environment in the beamer class.
+\captionsetup[figure]{labelformat=empty}
+
+\title{Clean Architecture}
+\author{Authors \mainauthor{Robert C. Martin}, James Grenning, Simon Brown}
+
+\begin{document}
+\begin{frame}[fragile=singleslide,t]
+  \centering
+
+  \maketitle
+
+  \begin{columns}[onlytextwidth,T]
+    \begin{column}{.47\textwidth}
+
+
+      \begin{block}{ARCHITECTURE}
+        From Grady Booch, architecture represents the significant design decisions that shape a system, where significant is measured by cost of change.
+      \end{block}
+
+
+      \begin{block}{Single Responsibility Principle}
+        A module should \textbf{be responsible to one, and only one actor}, so that actors are not coupled.\\
+        ~
+        \newline
+        \begin{figure}
+          \centering
+          \begin{subfigure}[t]{0.2\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{img/srp-bad}
+            \caption{Bad design}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[t]{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{img/srp-good}
+            \caption{Good design}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[t]{0.4\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{img/srp-good-facade}
+            \caption{Using a facade}
+          \end{subfigure}
+        \end{figure}
+      \end{block}
+
+
+      \begin{block}{Open Close Principle}
+        A software artifact should be open for extension but close for modification: arrange the components into a
+        \textbf{dependency hierarchy that protects higher-level components} from changes in lower-level components.
+        \begin{sidefigure}
+          \includegraphics[width=\hsize]{img/ocp-general}
+          \caption{This can be implemented by following the \textit{Dependency Inversion Principle}}
+        \end{sidefigure}
+      \end{block}
+
+      
+      \begin{block}{Liskov Substitution Principle}
+        All the subtypes $S$ of a type $T$ should be fully substituable by $T$: \textbf{interfaces of $T$ and $S$ should be exactly the same}.
+        \begin{sidefigure}
+          \centering
+          \includegraphics[width=0.6\hsize]{img/lsp-good}
+          \caption{This illustrates the square/rectangle problem, which violates the principle, as \texttt{Square} and \texttt{Rectangle} interfaces and behaviours are not compatible.\\It forces to add extra mechanisms to distinguish each types during runtime, which lowers the software maintainability.}
+        \end{sidefigure}
+      \end{block}
+
+      
+      \begin{block}{Interface Segragation Principle}
+        The client should not depend on something that it does not use. Consider a class whose responsibility is
+        persisting data on the harddrive. Splitting the class into a read- and a write part would not make
+        practical sense. But some clients should only use the class to read data,
+        some clients only to write data, and some to do both.
+        Applying ISP here with three different interfaces would be a nice solution.
+      \end{block}
+
+
+      \begin{block}{Dependency Inversion Principle}
+        The most flexible systems are those which source \textbf{dependencies refer only to abstractions},
+        not to concretions. It is possible to invert dependencies using Object-Oriented techniques:
+        \begin{figure}
+          \centering
+          \begin{subfigure}[t]{0.47\textwidth}
+            \centering
+            \includegraphics[width=0.47\textwidth]{img/dip-bad}
+            \caption{Both sides dependencies}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[t]{0.47\textwidth}
+            \centering
+            \includegraphics[width=0.47\textwidth]{img/dip-good}
+            \caption{All dependencies from B to A}
+          \end{subfigure}
+        \end{figure}
+        \begin{itemize}
+          \item Do not refer to concrete classes,
+          \item Do not derive a concrete class,
+          \item Do not redefine concrete methods.
+        \end{itemize}
+      \end{block}
+    \end{column}
+
+
+    \begin{column}{.47\textwidth}
+      \begin{block}{Principles of Components cohesion}
+        \begin{itemize}
+          \item Reuse/Release Equivalence: the granule of reuse is the granule of release;
+          \item Common Closure: a component should not have mutliple reasons to change (\textit{SRP});
+          \item Common Reuse: classes in a component are inseparable (\textit{ISP}).
+        \end{itemize}
+      \end{block}
+
+
+      \begin{block}{Stable \& Abstract Dependency Principles}
+        These 2 rules can be applied at the component-level and state that a component should
+        \textbf{depend in the direction of stability} and \textbf{be as abstract as it is stable}.
+        \begin{itemize}
+          \item Let $I(C)$ be a measure of the instability of a component $C$: $I(C)=\frac{dep_{out}(C)}{dep_{out}(C)+dep_{in}(C)}$. The \textit{Stable Dependency Principle} (\textit{OCP} applied to component) states that if $B$ depends on $A$, we should have $C(A) < C(B)$.  
+          \item Let $A(C)$ be a measure of the abstractness of a component $C$: $A(C)=\frac{N_{interfaces}(C)}{N_{class}(C)}$. The \textit{Abstract Dependency Principle} states that component should be on the curve reprensented by : $A(C) = 1-I(C)$.
+        \end{itemize}
+      \end{block}
+
+
+      \begin{block}{Dependency rule}
+        The following rules can be applied in the whole project:
+        \begin{sidefigure}
+          \centering \scalebox{0.5}{\input{resources/boundaries.tex}}
+          \caption {
+            \begin{itemize}
+              \item inner layers know nothing about outer layers;
+              \item source code dependencies point inwards to higher-level policies;
+              \item \textbf{isolated data structures} are passed across boundaries.
+            \end{itemize}
+          }
+        \end{sidefigure}
+      \end{block}
+
+
+      \begin{block}{Services Architecture}
+        \begin{sidefigure}
+          \centering
+          \includegraphics[width=\textwidth]{img/services}
+          \caption {Services in themselves are not architecturally significant elements. Architectural boundaries do not fall between services, but they run through the services, dividing them in components.}
+        \end{sidefigure}
+      \end{block}
+
+
+      \begin{block}{Design \& Code Organization}
+        \begin{figure}
+          \begin{subfigure}[b]{0.2\textwidth}
+            \includegraphics[width=\linewidth]{img/package-layer}
+            \caption{Layer}
+            \label{fig:layer}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[b]{0.2\textwidth}
+            \includegraphics[width=\linewidth]{img/package-feature}
+            \caption{Feature}
+            \label{fig:feature}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[b]{0.2\textwidth}
+            \includegraphics[width=\linewidth]{img/package-domain}
+            \caption{Domain}
+            \label{fig:domain}
+          \end{subfigure}
+          \hfill
+          \begin{subfigure}[b]{0.2\textwidth}
+            \includegraphics[width=\linewidth]{img/package-component}
+            \caption{Component}
+            \label{fig:component}
+          \end{subfigure}
+        \end{figure}
+
+        (a) is easy and quick to get started,
+        (b) is easy but removes all boundaries,
+        (c) maintains boundaries but bypass is still possible via visibility incorrectness and
+        (d) has a good separation and architecture principles can be statically verified.
+      \end{block}
+     \end{column}
+  \end{columns}
+\end{frame}
+\end{document}

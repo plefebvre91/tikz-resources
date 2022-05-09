@@ -1,0 +1,17 @@
+@startuml
+!theme plain
+hide empty members
+
+class Rectangle {
++setWidth
++setHeight
+}
+
+class Square {
++setSide
+}
+
+User -right-> Rectangle
+Square -up-|> Rectangle
+
+@enduml

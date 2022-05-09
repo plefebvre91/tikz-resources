@@ -1,0 +1,14 @@
+@startuml
+!theme plain
+hide empty members
+
+class OPS {
++op1
++op2
++op3
+}
+
+User1 -down-> OPS
+User2 -down-> OPS
+User3 -down-> OPS
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+skinparam componentStyle uml1
+hide empty members
+!theme plain
+
+component A as "Component A" {
+class A1
+class A2
+}
+
+
+component B as "Component B" {
+class B1
+class B2
+}
+
+A1 -right-> A2
+A1 -down-> B1
+B1 -right-> B2
+B2 -up-> A2
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+skinparam BackgroundColor transparent
+skinparam componentStyle rectangle
+
+!theme plain
+
+component "Component 1" {
+[Service 1.1] -up-|> [Feature 1] 
+[Service 2.1] -up-|> [Feature 1] 
+}
+
+component "Component 2" {
+[Service 1.2] -up-|> [Feature 2] 
+[Service 2.2] -up-|> [Feature 2] 
+}
+
+[Feature 2]  -right-> [Feature 1]
+
+[Service 1.1] <.. EP1
+[Service 1.2] <.. EP1
+
+[Service 2.1] <.. EP2
+[Service 2.2] <.. EP2
+@enduml

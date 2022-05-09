@@ -1,0 +1,21 @@
+@startuml
+!theme plain
+left to right direction
+hide empty members
+
+class PayCalculator {
++calulatePay
+}
+
+class HourReporter {
++reportHours
+}
+
+class EmployeeSaver {
++save
+}
+
+PayCalculator --> EmployeeData
+HourReporter --> EmployeeData
+EmployeeSaver --> EmployeeData
+@enduml

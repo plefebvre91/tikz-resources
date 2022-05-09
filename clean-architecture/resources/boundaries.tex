@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \foreach \j in {3,..., 6} {
+    \draw (O) circle (7.0-\j);
+  }
+  
+  \foreach \k/\text in {0/DB Web UI Devices,1/Controllers Presenter Gateways,2/Use cases} {
+    \draw[decoration={text along path,reverse path,text align={align=center},text={\text}},decorate] (3.3-\k,0) arc (0:180:3.3-\k);
+    \draw[dashed,>={Triangle[length=1mm,width=3mm]},->] (-3.5,0) -- (-1.1,0);
+  }
+  \draw[text=black] (0, 0) node{Entities};
+  \draw[text=black] (-2.3, -0.3) node{\textit{Higher level}};
+  
+\end{tikzpicture}

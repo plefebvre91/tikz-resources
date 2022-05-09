@@ -1,0 +1,30 @@
+@startuml
+!theme plain
+hide empty members
+
+interface U1Ops {
++op1
+}
+
+interface U2Ops {
++op2
+}
+
+interface U3Ops {
++op3
+}
+
+class OPS {
++op1
++op2
++op3
+}
+
+OPS -up-|> U1Ops
+OPS -up-|> U2Ops
+OPS -up-|> U3Ops
+
+User1 -down-> U1Ops
+User2 -down-> U2Ops
+User3 -down-> U3Ops
+@enduml

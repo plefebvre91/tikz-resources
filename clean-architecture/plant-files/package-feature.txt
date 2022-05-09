@@ -1,0 +1,22 @@
+@startuml
+!theme plain
+hide empty members
+
+package {
+  class Controller
+  Controller -down-> IService
+  Service .up.|> IService 
+  Service --> IModel
+  Model .up.|> IModel
+}
+
+
+
+
+interface IService
+class Controller
+class Service
+interface IModel
+class Model
+
+@enduml
