@@ -1,0 +1,14 @@
+\begin{tikzpicture}
+  \coordinate (O) at (0,0);
+  \draw[>={Triangle[length=1mm,width=3mm]},->] (O) -- (5,0);
+  \draw[>={Triangle[length=1mm,width=3mm]},->] (O) -- (0,4);
+  
+  \node[text=black, rotate=90] at (-0.5, 1.5) {Progress};
+  \draw[text=black] (2, -0.4) node{Time};
+
+  \draw [domain=0:4, dashed] plot (\x,{ln(3*\x+1)});
+  \node[text=black, rotate=14] at (3.5, 2) {Tactical};
+
+  \draw [domain=0:4] plot (\x,{\x});
+  \node[text=black, rotate=45] at (2.5, 3) {Strategic};
+\end{tikzpicture}
